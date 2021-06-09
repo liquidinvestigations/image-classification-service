@@ -76,7 +76,7 @@ steps:
   - apt-get install ffmpeg libsm6 libxext6  -y 
   - pip install pipenv > /dev/null
   - pipenv install --system --deploy --ignore-pipfile
-  - download_models.sh
+  - ./download_models.sh
   - py.test
   environment:
     OBJECT_DETECTION_ENABLED: true

@@ -12,10 +12,11 @@ RUN apt-get install ffmpeg libsm6 libxext6  -y
 
 COPY Pipfile Pipfile.lock ./
 COPY download_models.sh ./
+RUN chmod +x download_models.sh
 RUN pip install pipenv
 RUN pipenv install --system --deploy --ignore-pipfile
 
-RUN download_models.sh
+RUN ./download_models.sh
 WORKDIR /opt/app/
 
 
