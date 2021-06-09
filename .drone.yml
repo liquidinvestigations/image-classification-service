@@ -6,6 +6,10 @@ steps:
   image: alpine/flake8:3.7.7
   commands:
   - flake8
+- name: pylint
+  image: cytopia/pylint:latest-0.5
+  commands:
+  - pylint app.py
 
 ---
 kind: pipeline

@@ -1,8 +1,10 @@
+"""Flask app that provides endpoints to detect objects in an image."""
+
 from imageai.Detection import ObjectDetection
 import os
 import numpy as np
 import cv2
-from flask import Flask, request, jsonify, Response, abort
+from flask import Flask, request, jsonify, Response
 
 app = Flask(__name__)
 
@@ -69,23 +71,6 @@ def health_check():
         HTTP 200 if the service is reachable.
     """
     return Response(status=200)
-
-
-@app.route('/set-model', methods=['POST'])
-def set_model():
-    """Health Check endpoint.
-
-    This endopoint checks if the service is up and running.
-
-    Returns:
-        HTTP 200 if the service is reachable.
-    """
-    if request.form['model']:
-        os.environ['OBJECT_DETECTION_MODEL'] = request.form['model']
-        detector = setup_detector()
-        return Response(status=200)
-    else:
-        abort(400)
 
 
 def get_app():
