@@ -3,7 +3,6 @@ import os
 import numpy as np
 import cv2
 from flask import Flask, request, jsonify, Response, abort
-import sys
 
 app = Flask(__name__)
 
@@ -11,6 +10,15 @@ execution_path = os.getcwd()
 
 
 def setup_detector():
+    """Setup the detector with a model.
+
+    This function sets the object detector to use the model specified by the
+    environment variable OBJECT_DETECTION_MODEL. The three available options are
+    'yolo', 'tiny_yolo' and 'retina'.
+
+    Returns:
+        An ObjectDetection object.
+    """
     detector = ObjectDetection()
     model = os.getenv('OBJECT_DETECTION_MODEL')
     if model == "yolo":
@@ -33,6 +41,13 @@ if os.getenv('OBJECT_DETECTION_ENABLED'):
 
 @app.route('/detect-objects', methods=['POST'])
 def detect_objects():
+    """Object detectoin endpoint.
+
+    This endpoint receives an image and runs object detection on that image.
+
+    Returns:
+        A JSON Response with the detected objects and scores of the image.
+    """
     image_file = request.files['image']
     image_np = cv2.imdecode(np.frombuffer(image_file.read(), dtype=np.uint8),
                             -1)
@@ -46,23 +61,39 @@ def detect_objects():
 
 @app.route('/health')
 def health_check():
+    """Health Check endpoint.
+
+    This endopoint checks if the service is up and running.
+
+    Returns:
+        HTTP 200 if the service is reachable.
+    """
     return Response(status=200)
 
 
 @app.route('/set-model', methods=['POST'])
 def set_model():
-    print('Hello there', file=sys.stderr)
+    """Health Check endpoint.
+
+    This endopoint checks if the service is up and running.
+
+    Returns:
+        HTTP 200 if the service is reachable.
+    """
     if request.form['model']:
-        print(request.form['model'], file=sys.stderr)
         os.environ['OBJECT_DETECTION_MODEL'] = request.form['model']
         detector = setup_detector()
-        print(detector._ObjectDetection__modelType, file=sys.stderr)
         return Response(status=200)
     else:
         abort(400)
 
 
 def get_app():
+    """Returns the app for testing.
+
+    Returns:
+        the app, for testing.
+    """
     return app
 
 
