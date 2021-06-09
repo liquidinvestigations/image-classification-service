@@ -60,3 +60,11 @@ def set_model():
         return Response(status=200)
     else:
         abort(400)
+
+
+def get_app():
+    return app
+
+
+if __name__ == "__main__":
+    app.run()
