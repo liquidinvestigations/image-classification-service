@@ -4,6 +4,9 @@ WORKDIR /opt/app/
 ENV GUNICORN_WORKERS=2
 ENV GUNICORN_THREADS=30
 
+ENV OBJECT_DETECTION_ENABLED=true
+ENV OBJECT_DETECTION_MODEL=yolo
+
 RUN apt-get update
 RUN apt-get install ffmpeg libsm6 libxext6  -y 
 
