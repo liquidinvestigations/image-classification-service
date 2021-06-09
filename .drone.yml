@@ -58,7 +58,7 @@ steps:
 
 ---
 kind: pipeline
-name: integration-test
+name: integration-tests
 
 depends_on:
 - publish
@@ -73,9 +73,13 @@ steps:
 
   commands:
   - apt-get update -yqq
+  - apt-get install ffmpeg libsm6 libxext6  -y 
   - pip install pipenv > /dev/null
   - pipenv install --system --deploy --ignore-pipfile
   - py.test
+  environment:
+    OBJECT_DETECTION_ENABLED: true
+    OBJECT_DETECTION_MODEL: yolo
 
 ---
 kind: secret
