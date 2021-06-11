@@ -1,8 +1,6 @@
 FROM python:3.7.6-buster
 
 WORKDIR /opt/app/
-ENV GUNICORN_WORKERS=2
-ENV GUNICORN_THREADS=30
 
 ENV OBJECT_DETECTION_ENABLED=true
 ENV OBJECT_DETECTION_MODEL=yolo
@@ -27,4 +25,4 @@ COPY tests ./tests
 ENV FLASK_APP app.py
 ENV FLASK_DEBUG 0
 
-CMD gunicorn -b 0.0.0.0:5001 --keep-alive=120 --timeout=300 --worker-class=gthread --access-logfile '-' app:app
+CMD waitress-serve --port 5001 --threads=20 app:app
