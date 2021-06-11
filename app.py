@@ -5,8 +5,12 @@ import os
 import numpy as np
 import cv2
 from flask import Flask, request, jsonify, Response
+import logging
+from waitress import serve
 
 app = Flask(__name__)
+
+logger = logging.getLogger('waitress')
 
 execution_path = os.getcwd()
 
@@ -53,11 +57,15 @@ def detect_objects():
     image_file = request.files['image']
     image_np = cv2.imdecode(np.frombuffer(image_file.read(), dtype=np.uint8),
                             -1)
-    _, detections = detector \
-        .detectObjectsFromImage(input_type='array',
-                                input_image=image_np,
-                                minimum_percentage_probability=30,
-                                output_type='array')
+    try:
+        _, detections = detector \
+            .detectObjectsFromImage(input_type='array',
+                                    input_image=image_np,
+                                    minimum_percentage_probability=30,
+                                    output_type='array')
+    except ValueError as e:
+        logger.warning(e)
+        return Response("Error processing the image.", status=500)
     return jsonify(detections)
 
 
@@ -83,4 +91,4 @@ def get_app():
 
 
 if __name__ == "__main__":
-    app.run()
+    serve(app, host='0.0.0.0', port=5001)
