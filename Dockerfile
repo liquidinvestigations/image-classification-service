@@ -23,6 +23,7 @@ WORKDIR /opt/app/
 EXPOSE 5001
 COPY app.py .
 COPY tests ./tests
+COPY runserver.sh ./runserver.sh
 
 ENV FLASK_APP app.py
 ENV FLASK_DEBUG 0
