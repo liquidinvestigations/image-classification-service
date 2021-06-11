@@ -27,4 +27,4 @@ COPY tests ./tests
 ENV FLASK_APP app.py
 ENV FLASK_DEBUG 0
 
-CMD gunicorn -b 0.0.0.0:5001 --keep-alive=120 --timeout=300 --worker-class=gthread app:app
+CMD gunicorn -b 0.0.0.0:5001 --keep-alive=120 --timeout=300 --worker-class=gthread --access-logfile '-' app:app
