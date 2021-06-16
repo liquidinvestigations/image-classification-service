@@ -22,7 +22,7 @@ def test_health_check(client):
 
 
 def test_object_detection(client):
-    with open('tests/data/bicycles.jpg', 'rb') as f:
+    with open('tests/data/bike.jpg', 'rb') as f:
         data = {
             'image': (f, 'bike.jpg'),
         }
