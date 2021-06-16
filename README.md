@@ -18,7 +18,7 @@ There are three supported models which are `RetinaNet`, `YOLOv3` and `TinyYOLOv3
 The service uses `waitress`as a server and exposes port `5001`. The amount of threads used by waitress can be controlled through the environment variable `WAITRESS_THREADS` which is set in the Dockerfile.
 
 ## Running tests locally
-To run the tests locally using 
+To run the tests locally using `drone`, execute `./run_tests.sh`.
 
 # Stats while running the Models on 'testdata'
 
