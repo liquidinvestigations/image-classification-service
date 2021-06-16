@@ -24,7 +24,7 @@ def test_health_check(client):
 def test_object_detection(client):
     with open('tests/data/bicycles.jpg', 'rb') as f:
         data = {
-            'image': (f, 'bicycle.jpg'),
+            'image': (f, 'bike.jpg'),
         }
         resp = client.post('/detect-objects', content_type='multipart/form-data', data=data)
     assert resp.status_code == 200
