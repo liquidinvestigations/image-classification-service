@@ -1,6 +1,25 @@
 # image-classification-service
 REST service with image classification and object detection
 
+# Usage
+At the moment the service supports object detection which can be enabled by setting the `OBJECT_DETECTION_ENABLED` environment variable to `true`.
+
+## Routes
+
+Use `POST /detect-objects` to receive JSON-data containing the detected objects, the probability and the position of the detected object in the image. An example call with curl would look like this:
+`curl -F 'image=@test.jpg'  http://baseurl/detect-objects`.
+
+To check if the service is up you can use `/health`, which will return HTTP 200, if everything is running.
+
+## Choosing a model
+There are three supported models which are `RetinaNet`, `YOLOv3` and `TinyYOLOv3`. To choose which model will be used to detect objects set the `OBJECT_DETECTION_MODEL` environment variable to either `yolo`, `tiny_yolo` or `retina`.
+
+## Setting up waitress
+The service uses `waitress`as a server and exposes port `5001`. The amount of threads used by waitress can be controlled through the environment variable `WAITRESS_THREADS` which is set in the Dockerfile.
+
+## Running tests locally
+To run the tests locally using 
+
 # Stats while running the Models on 'testdata'
 
 ## RetinaNet (Model Size: 145 MB)
