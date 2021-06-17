@@ -31,7 +31,7 @@ Ressources needed:  50.000 Mhz CPU (Peak), 7.000 MB Memory (taken from Nomads co
 
 ## YOLOv3 (Model Size: 237 MB)
 Runtime: ~ 10:21 min  
-Ressources needed: 4800 Mhz CPU (20.000 Peak), 3.000 MB Memory (taken from Nomads container overview)  
+Ressources needed: 4.800 Mhz CPU (20.000 Peak), 3.000 MB Memory (taken from Nomads container overview)  
 5M Duration: 1569.58%  
 5M Fill: 54.752632  
 5M: 86  
