@@ -23,21 +23,21 @@ To run the tests locally using `drone`, execute `./run_tests.sh`.
 # Stats while running the Models on 'testdata'
 
 ## RetinaNet (Model Size: 145 MB)
-Runtime: 5:34 min  
+Runtime: ~ 5:34 min  
 Ressources needed:  50.000 Mhz CPU (Peak), 7.000 MB Memory (taken from Nomads container overview)  
 5M Duration: 20.192628  
 5M Fill: 1023.04%  
 5M: 152  
 
 ## YOLOv3 (Model Size: 237 MB)
-Runtime: 10:21 min  
+Runtime: ~ 10:21 min  
 Ressources needed: 4800 Mhz CPU (20.000 Peak), 3.000 MB Memory (taken from Nomads container overview)  
 5M Duration: 1569.58%  
 5M Fill: 54.752632  
 5M: 86  
 
 ## TinyYOLOv3 (Model Size: 34 MB)
-Runtime: 10:35 min  
+Runtime: ~ 10:35 min  
 Ressources needed: 5.000 Mhz CPU (8.000 Peak), 3.300 MB Memory (taken from Nomads container overview)  
 5M Duration: 55.691765  
 5M Fill: 1468.03%  
