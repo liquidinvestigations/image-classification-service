@@ -24,7 +24,7 @@ To run the tests locally using `drone`, execute `./run_tests.sh`.
 
 ## RetinaNet (Model Size: 145 MB)
 Runtime: 5:34 min  
-Ressources needed:  500000 Mhz CPU, 7000 MB Memory (taken from Nomads container overview)  
+Ressources needed:  50000 Mhz CPU, 7000 MB Memory (taken from Nomads container overview)  
 5M Duration: 20.192628  
 5M Fill: 1023.04%  
 5M: 152  
