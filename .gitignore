@@ -4,4 +4,5 @@
 /config/app.conf
 *.egg-info
 data/
-.env/
+.env
+.envrc
