@@ -120,7 +120,7 @@ def detect_objects():
 
 
 @app.route('/classify-image', methods=['POST'])
-def classify_objects():
+def classify_image():
     """Image classification endpoint.
 
     This endpoint receives an image and runs image classification on that image.
