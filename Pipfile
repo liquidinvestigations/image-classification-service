@@ -17,6 +17,7 @@ imageai = "*"
 flask = "*"
 pytest = "*"
 waitress = "*"
+flake8 = "*"
 
 [dev-packages]
 flake8 = "*"
