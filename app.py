@@ -86,6 +86,7 @@ def setup_prediction():
             os.path.join(execution_path,
                          "models/classify/DenseNet-BC-121-32.h5"))
     prediction.loadModel()
+    return prediction
 
 
 if os.getenv('OBJECT_DETECTION_ENABLED'):
