@@ -7,7 +7,6 @@ import numpy as np
 import cv2
 from flask import Flask, request, jsonify, Response
 import logging
-from tensorflow.python.keras.backend import dtype
 from waitress import serve
 
 app = Flask(__name__)
