@@ -2,9 +2,6 @@ FROM python:3.7.6-buster
 
 WORKDIR /opt/app/
 
-ENV OBJECT_DETECTION_ENABLED=true
-ENV OBJECT_DETECTION_MODEL=yolo
-
 ENV WAITRESS_THREADS=50
 
 RUN apt-get update
