@@ -17,8 +17,8 @@ def client():
 
 @pytest.fixture
 def disable_services(monkeypatch):
-    monkeypatch.setenv('OBJECT_CLASSIFICATION_ENABLED', False)
-    monkeypatch.setenv('IMAGE_CLASSIFICATION_ENABLED', False)
+    monkeypatch.setenv('OBJECT_CLASSIFICATION_ENABLED', 'False')
+    monkeypatch.setenv('IMAGE_CLASSIFICATION_ENABLED', 'False')
 
 
 def test_health_check(client):
