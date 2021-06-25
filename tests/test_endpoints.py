@@ -48,7 +48,7 @@ def test_image_classification(client):
     assert resp.status_code == 200
 
 
-def test_services_unavailable(client, disable_services):
+def test_classify_unavailable(client, disable_services):
     with open('tests/data/bike.jpg', 'rb') as f:
         data = {
             'image': (f, 'bike.jpg'),
@@ -56,8 +56,15 @@ def test_services_unavailable(client, disable_services):
         resp_classify = client.post('/classify-image',
                                     content_type='multipart/form-data',
                                     data=data)
-        resp_detect = client.post('/detect_objects',
+    assert resp_classify.status_code == 403
+
+
+def test_detection_unavailable(client, disable_services):
+    with open('tests/data/bike.jpg', 'rb') as f:
+        data = {
+            'image': (f, 'bike.jpg'),
+        }
+        resp_detect = client.post('/detect-objects',
                                   content_type='multipart/form-data',
                                   data=data)
-    assert resp_classify.status_code == 403
     assert resp_detect.status_code == 403
