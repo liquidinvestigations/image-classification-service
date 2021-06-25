@@ -5,7 +5,7 @@ from imageai.Classification import ImageClassification
 import os
 import numpy as np
 import cv2
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify, Response, abort
 import logging
 from waitress import serve
 
@@ -14,6 +14,9 @@ app = Flask(__name__)
 logger = logging.getLogger('waitress')
 
 execution_path = os.getcwd()
+
+OBJECT_DETECTION_ENABLED = os.getenv('OBJECT_DETECTION_ENABLED')
+IMAGE_CLASSIFICATION_ENABLED = os.getenv('IMAGE_CLASSIFICATION_ENABLED')
 
 
 def image_to_np(image_file):
@@ -89,10 +92,10 @@ def setup_prediction():
     return prediction
 
 
-if os.getenv('OBJECT_DETECTION_ENABLED'):
+if OBJECT_DETECTION_ENABLED:
     detector = setup_detector()
 
-if os.getenv('IMAGE_CLASSIFICATION_ENABLED'):
+if IMAGE_CLASSIFICATION_ENABLED:
     prediction = setup_prediction()
 
 
@@ -105,6 +108,9 @@ def detect_objects():
     Returns:
         A JSON Response with the detected objects and scores of the image.
     """
+    if not OBJECT_DETECTION_ENABLED:
+        abort(403, description="Object detection is not enabled.")
+
     image_file = request.files['image']
     try:
         image_np = image_to_np(image_file)
@@ -128,6 +134,9 @@ def classify_image():
     Returns:
         A JSON Response containing the classifications and the corresponding scores.
     """
+    if not IMAGE_CLASSIFICATION_ENABLED:
+        abort(403, description="Image classification is not enabled.")
+
     image_file = request.files['image']
 
     try:

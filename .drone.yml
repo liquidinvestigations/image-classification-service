@@ -80,7 +80,9 @@ steps:
   - py.test
   environment:
     OBJECT_DETECTION_ENABLED: true
-    OBJECT_DETECTION_MODEL: yolo
+    OBJECT_DETECTION_MODEL: "yolo"
+    IMAGE_CLASSIFICATION_ENABLED: true
+    IMAGE_CLASSIFICATION_MODEL: "mobilenet"
 
 ---
 kind: secret
