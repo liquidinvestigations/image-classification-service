@@ -1,4 +1,4 @@
-"""Flask app that provides endpoints to detect objects in an image."""
+"""Flask app that provides endpoints to detect objects in an image and classify images."""
 
 from imageai.Detection import ObjectDetection
 from imageai.Classification import ImageClassification
@@ -108,6 +108,8 @@ def detect_objects():
 
     Returns:
         A JSON Response with the detected objects and scores of the image.
+        If the image cannot be processed returns HTTP 500 and if the service is not enabled
+        returns HTTP 403.
     """
     if not OBJECT_DETECTION_ENABLED:
         abort(403, description="Object detection is not enabled.")
@@ -133,7 +135,9 @@ def classify_image():
     This endpoint receives an image and runs image classification on that image.
 
     Returns:
-        A JSON Response containing the classifications and the corresponding scores.
+        A JSON Response containing the classifications and the corresponding scores (HTTP 200).
+        If the image cannot be processed returns HTTP 500 and if the service is not enabled
+        returns HTTP 403.
     """
     if not IMAGE_CLASSIFICATION_ENABLED:
         abort(403, description="Image classification is not enabled.")

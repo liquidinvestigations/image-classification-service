@@ -11,6 +11,8 @@ Use `POST /detect-objects` to receive JSON-data containing the detected objects,
 Use `POST /classify-image` to receive JSON-data containing the predicted classes and the probability image. An example call with curl would look like this:
 `curl -F 'image=@test.jpg'  http://baseurl/classify-image`.
 
+Both endpoints will return `HTTP 500` if the image could be processed. If an endpoint is not enabled by settings the corresponding environment variable when running the container it will return `HTTP 403`.
+
 To check if the service is up you can use `/health`, which will return HTTP 200, if everything is running.
 
 ## Choosing a model
@@ -84,11 +86,11 @@ Ressources needed:  25.000 Mhz CPU (Peak), ? MB Memory (No significant memory us
 
 # Classification + Object Detection
 ## Most resource expensive model each (RetinaNet + DenseNet)
-Combined Runtime: ~ 4:51 min
-CPU: 52.000 Mhz (Peak) around 20.000 - 30.000 Mhz most of the time
-RAM: ? (Probably Nomads monitor is not working correctly)
+Combined Runtime: ~ 4:51 min  
+CPU: 52.000 Mhz (Peak) around 20.000 - 30.000 Mhz most of the time  
+RAM: ? (Probably Nomads monitor is not working correctly)  
 
 ## Least resource expensive model each (YoloV3 + ResNet50)
-Combined Runtime: ~ 10:13 min
-CPU: 23.000 Mhz (Peak) around 4.800 Mhz most of the time
-RAM: ?
+Combined Runtime: ~ 10:13 min  
+CPU: 23.000 Mhz (Peak) around 4.800 Mhz most of the time  
+RAM: ?  
