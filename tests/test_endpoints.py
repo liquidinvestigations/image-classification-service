@@ -5,20 +5,14 @@ import os
 myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, myPath + '/../')
 
-from app import get_app
+import app
 
 
 @pytest.fixture
 def client():
-    app = get_app()
-    app.config['TESTING'] = True
-    return app.test_client()
-
-
-@pytest.fixture
-def disable_services(monkeypatch):
-    monkeypatch.setenv('OBJECT_CLASSIFICATION_ENABLED', 'False')
-    monkeypatch.setenv('IMAGE_CLASSIFICATION_ENABLED', 'False')
+    flask_app = app.get_app()
+    flask_app.config['TESTING'] = True
+    return flask_app.test_client()
 
 
 def test_health_check(client):
@@ -48,7 +42,8 @@ def test_image_classification(client):
     assert resp.status_code == 200
 
 
-def test_classify_unavailable(client, disable_services):
+def test_classify_unavailable(client):
+    app.IMAGE_CLASSIFICATION_ENABLED = False
     with open('tests/data/bike.jpg', 'rb') as f:
         data = {
             'image': (f, 'bike.jpg'),
@@ -59,7 +54,8 @@ def test_classify_unavailable(client, disable_services):
     assert resp_classify.status_code == 403
 
 
-def test_detection_unavailable(client, disable_services):
+def test_detection_unavailable(client):
+    app.OBJECT_DETECTION_ENABLED = False
     with open('tests/data/bike.jpg', 'rb') as f:
         data = {
             'image': (f, 'bike.jpg'),

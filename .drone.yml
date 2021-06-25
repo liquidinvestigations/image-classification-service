@@ -77,7 +77,7 @@ steps:
   - pip install pipenv > /dev/null
   - pipenv install --system --deploy --ignore-pipfile
   - ./download_models.sh
-  - py.test --forked
+  - pytest
   environment:
     OBJECT_DETECTION_ENABLED: true
     OBJECT_DETECTION_MODEL: "yolo"
