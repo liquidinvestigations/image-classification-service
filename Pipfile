@@ -18,7 +18,6 @@ flask = "*"
 pytest = "*"
 waitress = "*"
 flake8 = "*"
-pytest--forked = "*"
 
 [dev-packages]
 flake8 = "*"
