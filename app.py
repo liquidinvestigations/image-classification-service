@@ -3,11 +3,17 @@
 from imageai.Detection import ObjectDetection
 from imageai.Classification import ImageClassification
 import os
+import io
 import numpy as np
 import cv2
 from flask import Flask, request, jsonify, Response, abort
 import logging
 from waitress import serve
+from PIL import Image
+from tensorflow.keras.models import Model
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.layers import GlobalAveragePooling2D
+from tensorflow.keras.applications.densenet import preprocess_input
 
 app = Flask(__name__)
 
@@ -23,6 +29,7 @@ def get_boolean(env):
 # get the boolean value of the str environment variable
 OBJECT_DETECTION_ENABLED = get_boolean('OBJECT_DETECTION_ENABLED')
 IMAGE_CLASSIFICATION_ENABLED = get_boolean('IMAGE_CLASSIFICATION_ENABLED')
+VECTOR_GENERATION_ENABLED = get_boolean('VECTOR_GENERATION_ENABLED')
 
 
 def image_to_np(image_file):
@@ -66,7 +73,9 @@ def setup_prediction():
 
     This function sets the image classifier to use the model specified by the
     environment variable IMAGE_CLASSIFICATION_MODEL. The four available options are
-    'mobilenet', 'resnet', 'inception' and 'densenet'.
+    'mobilenet', 'resnet', 'inception' and 'densenet'. As a side effect this functions
+    also imports the correct 'preprocess_input' which is required to get the feature vector from the
+    classification model.
 
     Returns:
         An ImageClassification object.
@@ -77,11 +86,13 @@ def setup_prediction():
         prediction.setModelTypeAsMobileNetV2()
         prediction.setModelPath(
             os.path.join(execution_path, "models/classify/mobilenet_v2.h5"))
+        from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
     if model == "resnet":
         prediction.setModelTypeAsResNet()
         prediction.setModelPath(
             os.path.join(execution_path,
                          "models/classify/resnet50_imagenet_tf.2.0.h5"))
+        from tensorflow.keras.applications.resnet50 import preprocess_input
     if model == "inception":
         prediction.setModelTypeAsInceptionV3()
         prediction.setModelPath(
@@ -89,11 +100,13 @@ def setup_prediction():
                 execution_path,
                 "models/classify/inception_v3_weights_tf_dim_ordering_tf_kernels.h5"
             ))
+        from tensorflow.keras.applications.inception_v3 import preprocess_input
     if model == "densenet":
         prediction.setModelTypeAsDenseNet121()
         prediction.setModelPath(
             os.path.join(execution_path,
                          "models/classify/DenseNet-BC-121-32.h5"))
+        from tensorflow.keras.applications.densenet import preprocess_input
     prediction.loadModel()
     return prediction
 
@@ -101,8 +114,12 @@ def setup_prediction():
 if OBJECT_DETECTION_ENABLED:
     detector = setup_detector()
 
-if IMAGE_CLASSIFICATION_ENABLED:
+if IMAGE_CLASSIFICATION_ENABLED or VECTOR_GENERATION_ENABLED:
     prediction = setup_prediction()
+    if VECTOR_GENERATION_ENABLED:
+        base_model = prediction._ImageClassification__model_collection[0]
+        layer = next(x for x in base_model.layers if isinstance(x, GlobalAveragePooling2D))
+        vector_model = Model(inputs=base_model.input, outputs=layer.output)
 
 
 @app.route('/detect-objects', methods=['POST'])
@@ -158,6 +175,43 @@ def classify_image():
         logger.warning(e)
         return Response("Error processing the image.", status=500)
     return jsonify(zipped_results)
+
+
+def process_image(image_file):
+    """Preprocess an image so that it can be fed into the model.
+
+    Processes a given FileStorage object and returns the image as a preprocessed
+    numpy array.
+    """
+    target_size = (224, 224)
+    img = Image.open(io.BytesIO(image_file.read()))
+    img = img.convert('RGB')
+    img = img.resize(target_size)
+    img = image.img_to_array(img)
+    img = np.expand_dims(img, axis=0)
+    img = preprocess_input(img)
+    return img
+
+
+@app.route('/get-vector', methods=['POST'])
+def get_vector():
+    """Image feature-vector generation endpoint.
+
+    This endpoint receives an image and extracts a feature-vector from it.
+
+    Returns:
+        A JSON Response containing the feature-vector as a list (HTTP 200). The length of the
+        vector depends on the model used and will be either 1024, 1280 or 2048.
+        If the image cannot be processed returns HTTP 500 and if the service is not enabled
+        returns HTTP 403.
+    """
+    if not VECTOR_GENERATION_ENABLED:
+        abort(403, description="Vector generation is not enabled.")
+    image_file = request.files['image']
+    img = process_image(image_file)
+    vector = vector_model.predict(img).flatten()
+    # todo this should also return the model used I guess
+    return jsonify(vector.tolist())
 
 
 @app.route('/health')

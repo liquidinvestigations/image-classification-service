@@ -83,6 +83,7 @@ steps:
     OBJECT_DETECTION_MODEL: "yolo"
     IMAGE_CLASSIFICATION_ENABLED: true
     IMAGE_CLASSIFICATION_MODEL: "mobilenet"
+    VECTOR_GENERATION_ENABLED: true
 
 ---
 kind: secret

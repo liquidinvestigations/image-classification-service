@@ -58,6 +58,17 @@ def test_status(client):
     assert json.loads(resp.data) == status
 
 
+def test_vector_generation(client):
+    with open('tests/data/bike.jpg', 'rb') as f:
+        data = {
+            'image': (f, 'bike.jpg'),
+        }
+        resp = client.post('/get-vector',
+                           content_type='multipart/form-data',
+                           data=data)
+    assert resp.status_code == 200
+
+
 def test_classify_unavailable(client):
     app.IMAGE_CLASSIFICATION_ENABLED = False
     with open('tests/data/bike.jpg', 'rb') as f:
@@ -80,3 +91,14 @@ def test_detection_unavailable(client):
                                   content_type='multipart/form-data',
                                   data=data)
     assert resp_detect.status_code == 403
+
+
+def test_vector_generation_unavailable(client):
+    with open('tests/data/bike.jpg', 'rb') as f:
+        data = {
+            'image': (f, 'bike.jpg'),
+        }
+        resp = client.post('/get-vector',
+                           content_type='multipart/form-data',
+                           data=data)
+    assert resp.status_code == 403
