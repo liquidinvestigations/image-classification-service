@@ -94,6 +94,7 @@ def test_detection_unavailable(client):
 
 
 def test_vector_generation_unavailable(client):
+    app.VECTOR_GENERATION_ENABLED = False
     with open('tests/data/bike.jpg', 'rb') as f:
         data = {
             'image': (f, 'bike.jpg'),
