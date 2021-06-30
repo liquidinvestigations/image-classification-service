@@ -170,6 +170,7 @@ disable=abstract-method,
         self-cls-assignment, # snoop: bad style, TODO fix
         consider-using-set-comprehension, # snoop: bad style, TODO fix
         #missing-function-docstring,
+        reimported,
 
 [REPORTS]
 
