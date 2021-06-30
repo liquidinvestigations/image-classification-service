@@ -92,7 +92,7 @@ def setup_prediction():
         prediction.setModelPath(
             os.path.join(execution_path,
                          "models/classify/resnet50_imagenet_tf.2.0.h5"))
-        from tensorflow.keras.applications.resnet50 import preprocess_input
+        from tensorflow.keras.applications.resnet50 import preprocess_input # noqa F811
     if model == "inception":
         prediction.setModelTypeAsInceptionV3()
         prediction.setModelPath(
@@ -100,13 +100,13 @@ def setup_prediction():
                 execution_path,
                 "models/classify/inception_v3_weights_tf_dim_ordering_tf_kernels.h5"
             ))
-        from tensorflow.keras.applications.inception_v3 import preprocess_input
+        from tensorflow.keras.applications.inception_v3 import preprocess_input # noqa F811
     if model == "densenet":
         prediction.setModelTypeAsDenseNet121()
         prediction.setModelPath(
             os.path.join(execution_path,
                          "models/classify/DenseNet-BC-121-32.h5"))
-        from tensorflow.keras.applications.densenet import preprocess_input
+        from tensorflow.keras.applications.densenet import preprocess_input # noqa F401, F811
     prediction.loadModel()
     return prediction
 
