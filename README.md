@@ -1,8 +1,8 @@
 # image-classification-service
-REST service with image classification and object detection
+REST service with image classification, object detection and extraction of a feature-vector from an image.
 
 # Usage
-The service supports object detection and image classification. Object detection can be enabled by setting the `OBJECT_DETECTION_ENABLED` environment variable to `true`. To enable image classification set the `IMAGE_CLASSIFICATION` environment variable.
+The service supports object detection and image classification. Object detection can be enabled by setting the `OBJECT_DETECTION_ENABLED` environment variable to `true`. To enable image classification set the `IMAGE_CLASSIFICATION_ENABLED` environment variable to `true`. To enable the feature-vector extraction set `VECTOR_GENERATION_ENABLED` to `true`.
 
 ## Routes
 ### /detect-objects
@@ -14,6 +14,8 @@ Use `POST /classify-image` to receive JSON-data containing the predicted classes
 `curl -F 'image=@test.jpg'  http://baseurl/classify-image`.
 
 Both endpoints will return `HTTP 500` if the image could be processed. If an endpoint is not enabled by settings the corresponding environment variable when running the container it will return `HTTP 403`.
+
+It is also possible to use the service to extract a feature-vector from an image. This vector can be used for reverse image search. The endpoint for that functionality is `POST /get-vector`. It can be used in the same way, the other two endpoints work. The response will be a JSON containing the vector and the model which was used to compute the vector. The model will always be the same as defined by `IMAGE_CLASSIFICATION_MODEL`.
 
 ### /health
 To check if the service is up you can use `/health`, which will return HTTP 200, if everything is running.

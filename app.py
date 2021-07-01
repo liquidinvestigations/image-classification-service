@@ -200,7 +200,8 @@ def get_vector():
     This endpoint receives an image and extracts a feature-vector from it.
 
     Returns:
-        A JSON Response containing the feature-vector as a list (HTTP 200). The length of the
+        A JSON Response containing the feature-vector as a list and the model used to
+        create that vector (HTTP 200). The length of the
         vector depends on the model used and will be either 1024, 1280 or 2048.
         If the image cannot be processed returns HTTP 500 and if the service is not enabled
         returns HTTP 403.
@@ -210,8 +211,7 @@ def get_vector():
     image_file = request.files['image']
     img = process_image(image_file)
     vector = vector_model.predict(img).flatten()
-    # todo this should also return the model used I guess
-    return jsonify(vector.tolist())
+    return jsonify(model=os.getenv('IMAGE_CLASSIFICATION_MODEL'), vector=vector)
 
 
 @app.route('/health')
