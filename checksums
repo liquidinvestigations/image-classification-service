@@ -1,0 +1,4 @@
+95a12003fb7c1ca7163ba4a22dec385e8d30ce1239a34d43cd7cc427fd448dc6  ./mobilenet_v2.h5
+123616aeb57a35babed6a4bb9243516e995d0ce4bcf87a7e2af999ec8c73a24a  ./DenseNet-BC-121-32.h5
+00c9ea4e4762f716ac4d300d6d9c2935639cc5e4d139b5790d765dcbeea539d0  ./inception_v3_weights_tf_dim_ordering_tf_kernels.h5
+7011d39ea4f61f4ddb8da99c4addf3fae4209bfda7828adb4698b16283258fbe  ./resnet50_imagenet_tf.2.0.h5
