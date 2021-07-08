@@ -211,7 +211,7 @@ def get_vector():
     image_file = request.files['image']
     img = process_image(image_file)
     vector = vector_model.predict(img).flatten()
-    return jsonify(model=os.getenv('IMAGE_CLASSIFICATION_MODEL'), vector=vector)
+    return jsonify(model=os.getenv('IMAGE_CLASSIFICATION_MODEL'), vector=vector.tolist())
 
 
 @app.route('/health')
