@@ -17,7 +17,7 @@ execution_path = os.getcwd()
 
 
 def get_boolean(env):
-    return (os.getenv(env), 'False').lower() in ('true', 't')
+    return os.getenv(env, 'False').lower() in ('true', 't')
 
 
 # get the boolean value of the str environment variable
