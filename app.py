@@ -15,9 +15,14 @@ logger = logging.getLogger('waitress')
 
 execution_path = os.getcwd()
 
+
+def get_boolean(env):
+    return (os.getenv(env), 'False').lower() in ('true', 't')
+
+
 # get the boolean value of the str environment variable
-OBJECT_DETECTION_ENABLED = (os.getenv('OBJECT_DETECTION_ENABLED', 'false') == 'true')
-IMAGE_CLASSIFICATION_ENABLED = (os.getenv('IMAGE_CLASSIFICATION_ENABLED', 'false') == 'true')
+OBJECT_DETECTION_ENABLED = get_boolean('OBJECT_DETECTION_ENABLED')
+IMAGE_CLASSIFICATION_ENABLED = get_boolean('IMAGE_CLASSIFICATION_ENABLED')
 
 
 def image_to_np(image_file):
