@@ -26,7 +26,7 @@ def get_boolean(env):
     return os.getenv(env, 'False').lower() in ('true', 't')
 
 
-# get the boolean value of the str environment variable
+# get the boolean value of the str environment variables
 OBJECT_DETECTION_ENABLED = get_boolean('OBJECT_DETECTION_ENABLED')
 IMAGE_CLASSIFICATION_ENABLED = get_boolean('IMAGE_CLASSIFICATION_ENABLED')
 VECTOR_GENERATION_ENABLED = get_boolean('VECTOR_GENERATION_ENABLED')
