@@ -110,3 +110,32 @@ RAM: ? (Probably Nomads monitor is not working correctly)
 Combined Runtime: ~ 10:13 min  
 CPU: 23.000 Mhz (Peak) around 4.800 Mhz most of the time  
 RAM: ?  
+
+# Vector Extraction
+## MobileNetV2 (Model Size: 4.82 MB)
+Runtime: ~ 2 min  
+Ressources needed: 8.600 Mhz CPU (Peak), ? MB Memory (No significant memory usage visible)  
+5M Duration: 0.822562  
+5M Fill: 44.42%  
+5M: 162  
+
+## ResNet50 (Model Size: 98 MB)
+Runtime: ~ 2:06 min  
+Ressources needed: 13.600 Mhz CPU (Peak), ? MB Memory (No significant memory usage visible)  
+5M Duration: 1.218618  
+5M Fill: 65.81%  
+5M: 162  
+
+## InceptionV3 (Model Size: 91.6 MB)
+Runtime: ~ 1:51 min  
+Ressources needed: 4.400 Mhz CPU (Peak), ? MB Memory (No significant memory usage visible)  
+5M Duration: 1.027624  
+5M Fill: 55.49%  
+5M: 162  
+
+## DenseNet121 (Model Size: 31.6 MB)
+Runtime: ~ 2:07 min  
+Ressources needed: 17.000 Mhz CPU (Peak), ? MB Memory (No significant memory usage visible)  
+5M Duration: 1.242954  
+5M Fill: 67.12%  
+5M: 162  
