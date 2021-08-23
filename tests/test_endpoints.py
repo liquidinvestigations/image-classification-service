@@ -56,6 +56,7 @@ def test_status(client):
         },
         'image-vector': {
             'enabled': True,
+            'model': 'mobilenet',
         }
     }
     assert json.loads(resp.data) == status

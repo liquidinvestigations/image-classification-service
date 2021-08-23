@@ -247,6 +247,7 @@ def status():
         },
         'image-vector': {
             'enabled': VECTOR_GENERATION_ENABLED,
+            'model': os.getenv('IMAGE_CLASSIFICATION_MODEL')
         },
     }
     return jsonify(res)

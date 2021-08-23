@@ -30,7 +30,7 @@ To receive information about the current status of the service and the enabled f
   "object-detection":
     {"model":"yolo","enabled":false}
   "image-vector": 
-    {"enabled":true}
+    {"model": "densenet", "enabled":true}
 }
 ```
 
