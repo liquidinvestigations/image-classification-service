@@ -184,11 +184,11 @@ def status():
     """
     res = {
         'image-classification': {
-            'status': IMAGE_CLASSIFICATION_ENABLED,
+            'enabled': IMAGE_CLASSIFICATION_ENABLED,
             'model': os.getenv('IMAGE_CLASSIFICATION_MODEL')
         },
         'object-detection': {
-            'status': OBJECT_DETECTION_ENABLED,
+            'enabled': OBJECT_DETECTION_ENABLED,
             'model': os.getenv('OBJECT_DETECTION_MODEL')
         }
     }
