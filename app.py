@@ -244,7 +244,10 @@ def status():
         'object-detection': {
             'enabled': OBJECT_DETECTION_ENABLED,
             'model': os.getenv('OBJECT_DETECTION_MODEL')
-        }
+        },
+        'image-vector': {
+            'enabled': VECTOR_GENERATION_ENABLED,
+        },
     }
     return jsonify(res)
 

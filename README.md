@@ -15,6 +15,7 @@ Use `POST /classify-image` to receive JSON-data containing the predicted classes
 
 Both endpoints will return `HTTP 500` if the image could be processed. If an endpoint is not enabled by settings the corresponding environment variable when running the container it will return `HTTP 403`.
 
+### /get-vector
 It is also possible to use the service to extract a feature-vector from an image. This vector can be used for reverse image search. The endpoint for that functionality is `POST /get-vector`. It can be used in the same way, the other two endpoints work. The response will be a JSON containing the vector and the model which was used to compute the vector. The model will always be the same as defined by `IMAGE_CLASSIFICATION_MODEL`.
 
 ### /health
@@ -25,9 +26,11 @@ To receive information about the current status of the service and the enabled f
 ```
 {
   "image-classification":
-    {"model":"densenet","status":true},
+    {"model":"densenet","enabled":true},
   "object-detection":
-    {"model":"yolo","status":false}
+    {"model":"yolo","enabled":false}
+  "image-vector": 
+    {"enabled":true}
 }
 ```
 

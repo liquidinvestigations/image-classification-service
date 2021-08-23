@@ -53,6 +53,9 @@ def test_status(client):
         'object-detection': {
             'enabled': True,
             'model': 'yolo'
+        },
+        'image-vector': {
+            'enabled': True,
         }
     }
     assert json.loads(resp.data) == status
