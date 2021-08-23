@@ -25,7 +25,8 @@ To receive information about the current status of the service and the enabled f
   "image-classification":
     {"model":"densenet","status":true},
   "object-detection":
-    {"model":"yolo","status":false}}
+    {"model":"yolo","status":false}
+}
 ```
 
 ## Choosing a model
