@@ -5,15 +5,28 @@ REST service with image classification and object detection
 The service supports object detection and image classification. Object detection can be enabled by setting the `OBJECT_DETECTION_ENABLED` environment variable to `true`. To enable image classification set the `IMAGE_CLASSIFICATION` environment variable.
 
 ## Routes
+### /detect-objects
 Use `POST /detect-objects` to receive JSON-data containing the detected objects, the probability and the position of the detected object in the image. An example call with curl would look like this:
 `curl -F 'image=@test.jpg'  http://baseurl/detect-objects`.
 
+### /classify-image
 Use `POST /classify-image` to receive JSON-data containing the predicted classes and the probability image. An example call with curl would look like this:
 `curl -F 'image=@test.jpg'  http://baseurl/classify-image`.
 
 Both endpoints will return `HTTP 500` if the image could be processed. If an endpoint is not enabled by settings the corresponding environment variable when running the container it will return `HTTP 403`.
 
+### /health
 To check if the service is up you can use `/health`, which will return HTTP 200, if everything is running.
+
+### /status
+To receive information about the current status of the service and the enabled functionalities use `/status`. This will return a JSON looking like this:
+```
+{
+  "image-classification":
+    {"model":"densenet","status":true},
+  "object-detection":
+    {"model":"yolo","status":false}}
+```
 
 ## Choosing a model
 ### Object Detection
