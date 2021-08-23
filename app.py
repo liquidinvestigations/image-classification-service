@@ -172,6 +172,29 @@ def health_check():
     return Response(status=200)
 
 
+@app.route('/status')
+def status():
+    """Endpoint to get the current status of the service.
+
+    This endpoints returns information about the activated functionality and the models used.
+
+    Returns:
+        A JSON Response containing information about the functionalities (classification
+        and detection) and their current status.
+    """
+    res = {
+        'image-classification': {
+            'status': IMAGE_CLASSIFICATION_ENABLED,
+            'model': os.getenv('IMAGE_CLASSIFICATION_MODEL')
+        },
+        'object-detection': {
+            'status': OBJECT_DETECTION_ENABLED,
+            'model': os.getenv('OBJECT_DETECTION_MODEL')
+        }
+    }
+    return jsonify(res)
+
+
 def get_app():
     """Returns the app for testing.
 
