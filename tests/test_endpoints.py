@@ -1,5 +1,6 @@
 import pytest
 import sys
+import json
 import os
 
 myPath = os.path.dirname(os.path.abspath(__file__))
@@ -40,6 +41,21 @@ def test_image_classification(client):
                            content_type='multipart/form-data',
                            data=data)
     assert resp.status_code == 200
+
+
+def test_status(client):
+    resp = client.get('/status')
+    status = {
+        'image-classification': {
+            'enabled': True,
+            'model': 'mobilenet'
+        },
+        'object-detection': {
+            'enabled': True,
+            'model': 'yolo'
+        }
+    }
+    assert json.loads(resp.data) == status
 
 
 def test_classify_unavailable(client):
