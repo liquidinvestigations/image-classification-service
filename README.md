@@ -23,9 +23,9 @@ To receive information about the current status of the service and the enabled f
 ```
 {
   "image-classification":
-    {"model":"densenet","status":true},
+    {"model":"densenet","enabled":true},
   "object-detection":
-    {"model":"yolo","status":false}
+    {"model":"yolo","enabled":false}
 }
 ```
 
