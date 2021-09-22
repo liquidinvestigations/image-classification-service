@@ -23,4 +23,7 @@ else
     echo "Removing classification models."
     rm *.h5
 fi
-cd -
+mkdir ~/.keras/models
+cd ~/.keras/models
+curl -O -L https://storage.googleapis.com/download.tensorflow.org/data/imagenet_class_index.json
+cd /opt/app
