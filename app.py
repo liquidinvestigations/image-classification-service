@@ -8,6 +8,7 @@ import cv2
 from flask import Flask, request, jsonify, Response, abort
 import logging
 
+logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
 execution_path = os.getcwd()
