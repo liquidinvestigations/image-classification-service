@@ -37,7 +37,9 @@ There are three supported models which are `RetinaNet`, `YOLOv3` and `TinyYOLOv3
 There are three supported models which are `MobileNetV2`, `ResNet50`, `InceptionV3` and `DenseNet121`. To choose which model will be used to detect objects set the `IMAGE_CLASSIFICATION_MODEL` environment variable to either `mobilenet`, `resnet`, `inception` or `densenet`.
 
 ## Setting up waitress
-The service uses `waitress`as a server and exposes port `5001`. The amount of threads used by waitress can be controlled through the environment variable `WAITRESS_THREADS` which is set in the Dockerfile.
+The service uses `gunicorn`as a server and exposes port `5001`.
+It uses 5 workers with 8 threads each, restarting each worker after 100-150
+requests to avoid memory leaks and instability.
 
 ## Running tests locally
 To run the tests locally using `drone`, execute `./run_tests.sh`.

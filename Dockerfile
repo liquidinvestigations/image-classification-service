@@ -2,10 +2,10 @@ FROM python:3.7.6-buster
 
 WORKDIR /opt/app/
 
-ENV WAITRESS_THREADS=50
+RUN apt-get update \
+&& apt-get install -y ffmpeg libsm6 libxext6  \
+&& rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update
-RUN apt-get install ffmpeg libsm6 libxext6  -y 
 
 COPY Pipfile Pipfile.lock ./
 COPY download_models.sh ./
