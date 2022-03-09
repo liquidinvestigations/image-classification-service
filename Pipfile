@@ -16,8 +16,7 @@ keras-resnet = "==0.2.0"
 imageai = "*"
 flask = "*"
 pytest = "*"
-waitress = "*"
-flake8 = "*"
+gunicorn = "==20.1.0"
 
 [dev-packages]
 flake8 = "*"

@@ -7,11 +7,8 @@ import numpy as np
 import cv2
 from flask import Flask, request, jsonify, Response, abort
 import logging
-from waitress import serve
 
 app = Flask(__name__)
-
-logger = logging.getLogger('waitress')
 
 execution_path = os.getcwd()
 
@@ -202,7 +199,3 @@ def get_app():
         the app, for testing.
     """
     return app
-
-
-if __name__ == "__main__":
-    serve(app, host='0.0.0.0', port=5001)
