@@ -26,7 +26,7 @@ IMAGE_CLASSIFICATION_ENABLED = get_boolean('IMAGE_CLASSIFICATION_ENABLED')
 def image_to_np(image_file):
     """Convert image file to numpy array."""
 
-    return cv2.imdecode(np.frombuffer(image_file.read(), dtype=np.uint8), -1)
+    return cv2.imdecode(np.frombuffer(image_file.read(), dtype=np.uint8), cv2.IMREAD_COLOR)
 
 
 def setup_detector():
