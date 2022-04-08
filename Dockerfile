@@ -26,5 +26,6 @@ RUN chmod +x runserver.sh
 
 ENV FLASK_APP app.py
 ENV FLASK_DEBUG 0
+ENV WORKER_COUNT 4
 
 CMD ./runserver.sh
