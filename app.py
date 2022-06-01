@@ -39,6 +39,7 @@ def setup_detector():
     Returns:
         An ObjectDetection object.
     """
+    logger.info('setting up detector...')
     detector = ObjectDetection()
     model = os.getenv('OBJECT_DETECTION_MODEL')
     if model == "yolo":
@@ -69,6 +70,7 @@ def setup_prediction():
     Returns:
         An ImageClassification object.
     """
+    logger.info('setting up prediction...')
     prediction = ImageClassification()
     model = os.getenv('IMAGE_CLASSIFICATION_MODEL')
     if model == "mobilenet":
@@ -200,3 +202,7 @@ def get_app():
         the app, for testing.
     """
     return app
+
+
+if __name__ == '__main__':
+    print('setup test done.')
